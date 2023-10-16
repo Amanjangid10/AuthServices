@@ -4,5 +4,6 @@ env.config();
 
 module.exports = {
     PORT: process.env.PORT,
-    SALT : bcrypt.genSaltSync(10)
+    SALT: bcrypt.genSaltSync(10),
+    jwt_key: process.env.jwt_key
 }

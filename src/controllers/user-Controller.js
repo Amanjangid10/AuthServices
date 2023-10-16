@@ -1,9 +1,8 @@
-const userService  = require('../services/user-service')
-
+const userService = require('../services/user-service')
 const UserService = new userService();
 
-const create = async (req, res)=>{
-
+const create = async (req, res) => {
+    
     try {
         const response = await UserService.create({
             email: req.body.email,
@@ -25,25 +24,31 @@ const create = async (req, res)=>{
     }    
 }
 
-const destroy = async (req, res)=>{
 
+
+const signIn = async (req, res)=>{
     try {
-        const response = await UserService.destroy(req.params.id)
+        const response = await UserService.signIn(req.body.email, req.body.password);
         return res.status(201).json({
             success: true,
-            message: 'Succesfully deleted a user',
+            message: 'Successfully signed in',
             data: response,
             err : {}
-        })   
+        }) 
+        
     } catch (error) {
-        return res.status(error.statusCode).json({
+        console.log('something wrong while signin');
+        return res.status(500).json({
             success: false,
-            message: error.message,
+            message: 'error while signIn',
             data: {},
-            err : error.explanation
+            err: error
         })
-    }    
+        
+    }
 }
+module.exports = { create , signIn};
 
-module.exports = { create };
+
+
 
