@@ -44,6 +44,25 @@ class userService {
         }
     }
 
+    async authenticateUser(token) {
+        try {
+            const response = await this.verifyToken(token);
+            if (!response) {
+                console.log('invalid token')
+                throw {error: 'invalid token'}
+            }
+            const user = await this.UserRepository.getbyid(response.id);
+            if (!user) {
+                console.log('no user found with corresponding token')
+                throw {error : 'no user found with corresponding token'}
+            }
+            return user.id;
+        } catch (error) {
+            console.log('something wrong with authenticating the user')
+            throw error;
+        }
+    }
+
 
 
     async createToken(user) {
