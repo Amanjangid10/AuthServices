@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 
 const { PORT, Db_Sync } = require('../src/config/serverConfig')
 const routes = require('./routes/index');
-const db= require('./models/index')
+const db = require('./models/index')
+
 
 
 const AuthStartUp = async() => {
@@ -19,8 +20,6 @@ const AuthStartUp = async() => {
         if (Db_Sync) {
            await db.sequelize.sync({alter:true})
         }
-
-        
 
     })
 
