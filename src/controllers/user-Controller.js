@@ -1,6 +1,7 @@
 const userService = require('../services/user-service')
 const UserService = new userService();
 
+
 const create = async (req, res) => {
     
     try {
@@ -15,6 +16,7 @@ const create = async (req, res) => {
             err : {}
         })   
     } catch (error) {
+        console.log(error);
         return res.status(error.statusCode).json({
             success: false,
             message: error.message,
@@ -73,9 +75,33 @@ const isAuthenticated = async (req, res) => {
     } 
 }
 
+const isAdmin = async (req, res) => {
+    try {
+        const user= await UserServices.isAdmin(req.body.id)
+        return res.status(201).json({
+            success: true,
+            message: ' user has Admin',
+            data: response,
+            err : {}
+        }) 
+        
+    } catch (error) {
+        console.log(error);    
+        return res.status(500).json({
+            success: false,
+            message: 'user does no have adminRole',
+            data: {},
+            err: error
+        })
+        
+    } 
+}
 
 
-module.exports = { create , signIn, isAuthenticated};
+
+
+
+module.exports = { create , signIn, isAdmin, isAuthenticated};
 
 
 

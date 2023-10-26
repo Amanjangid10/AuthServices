@@ -12,14 +12,11 @@ class userService {
 
     async create(data) {
         try {
-
             const user = await this.UserRepository.create(data);
             return user;
-            
         } catch (error) {
             console.log('Something is wrong with service layer')
-            throw (error)
-            
+            throw (error)  
         }
     }
 
@@ -93,6 +90,16 @@ class userService {
             return result;   
         } catch (error) {
             console.log('passwords does not match ');
+            throw error;
+        }
+    }
+
+    async isAdmin(userId) {
+        try {
+            const user= await this.UserRepository.isAdmin(userId)
+            return user;
+        } catch (error) {
+            console.log('something wrong with service layer ');
             throw error;
         }
     }
